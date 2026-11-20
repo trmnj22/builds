@@ -1,0 +1,153 @@
+<!--
+  STRUCTURAL TEMPLATE for the assignment-grader dashboard (Option B: independent dual-agent grading + lens toggle).
+  This is a starting point, NOT a finished deliverable. Adapt it to the real data:
+  - Replace every {{PLACEHOLDER}} and the example criterion.
+  - One .crit per rubric criterion. Inside each, a .v-strict block and a .v-lenient block.
+  - Each block carries that lens's score, bar, justification, and the two required boxes:
+    "What earns marks" (✓) and "What loses marks" (✗). At full marks, loses box = "Nothing, full marks."
+  - The toggle swaps body.lens-strict <-> body.lens-lenient. CSS shows only the active .v-* blocks.
+  - If only one lens was run, drop the toggle and the unused .v-* blocks.
+  - Re-read the frontend-design skill and raise the visual quality well beyond this skeleton.
+  All styles/scripts are inline so the file works offline. Keep it that way.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ASSIGNMENT_TITLE}} · Grade dashboard</title>
+<style>
+  :root{
+    --bg:#0f1115; --surface:#171a21; --surface-2:#1f232c; --line:#2a2f3a;
+    --ink:#e8eaed; --muted:#9aa3b2; --faint:#6b7280;
+    --strict:#e0685f; --strict-soft:#3a1f1c;
+    --lenient:#67b98a; --lenient-soft:#1d3329;
+    --good:#67b98a; --bad:#e0685f;
+    --radius:14px;
+    --font: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --lensc:var(--strict);             /* recolours with the active lens */
+  }
+  body.lens-lenient{--lensc:var(--lenient)}
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:clamp(20px,4vw,56px)}
+
+  /* lens visibility: the core mechanic */
+  body.lens-strict  .v-lenient{display:none}
+  body.lens-lenient .v-strict {display:none}
+
+  /* Toggle */
+  .seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+  .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;padding:8px 20px;border-radius:999px;cursor:pointer}
+  body.lens-strict  .seg [data-l="strict"] {background:var(--strict-soft);color:#ffd9d4}
+  body.lens-lenient .seg [data-l="lenient"]{background:var(--lenient-soft);color:#cdeedd}
+
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin:18px 0 12px;border-top:3px solid var(--lensc)}
+  .hero .big{font-size:clamp(2.6rem,8vw,3.6rem);font-weight:700;line-height:1;margin:.1em 0}
+  .hero .compare{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+
+  .crit{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px}
+  .crit-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:4px}
+  .scoreline .pts{font-size:1.5rem;font-weight:700;color:var(--lensc)}
+  .bar{height:6px;border-radius:99px;background:#241d15;overflow:hidden;margin:8px 0 12px}
+  .bar>i{display:block;height:100%;background:var(--lensc)}
+  .just{font-size:.89rem;color:var(--muted);margin-bottom:14px}
+  .el{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:560px){.el{grid-template-columns:1fr}}
+  .el .box{border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+  .el .box h4{margin:0 0 8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .el .earn h4{color:var(--good)} .el .lose h4{color:var(--bad)}
+  .el ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+  .el li{font-size:.85rem;display:flex;gap:9px}
+  .el .earn li::before{content:"✓";color:var(--good);font-weight:700}
+  .el .lose  li::before{content:"✗";color:var(--bad);font-weight:700}
+  .el .none{font-size:.84rem;color:var(--faint);font-style:italic}
+
+  .verdict{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;border-top:3px solid var(--lensc)}
+
+  @media print{
+    body{background:#fff;color:#111}
+    :root{--surface:#fff;--surface-2:#fff;--ink:#111;--muted:#333;--line:#ccc}
+    .wrap{max-width:none;padding:0} .crit,.verdict,.hero{break-inside:avoid}
+  }
+</style>
+</head>
+<body class="lens-strict">
+<div class="wrap">
+
+  <header>
+    <h1>{{ASSIGNMENT_TITLE}}</h1>
+    <p>Examiner <b>Prof. {{PROFESSOR_NAME}}</b> · Scale {{SCALE}} · {{DATE}} · Files: {{FILE_LIST}}</p>
+  </header>
+
+  <!-- TOGGLE -->
+  <div class="seg" role="group" aria-label="Choose grading lens">
+    <button type="button" data-l="strict"  aria-pressed="true"  onclick="setLens('strict')">Strict professor</button>
+    <button type="button" data-l="lenient" aria-pressed="false" onclick="setLens('lenient')">Lenient professor</button>
+  </div>
+
+  <!-- HERO (one block per lens, only the active one shows) -->
+  <div class="hero">
+    <div class="v-strict">
+      <div>Strict lens · independent grader</div>
+      <div class="big">{{STRICT_PCT}}</div>
+      <div>{{STRICT_POINTS}} · {{STRICT_BAND}}</div>
+      <div class="compare">Lenient professor scored this <b>{{LENIENT_PCT}} ({{LENIENT_BAND}})</b>. Toggle to switch.</div>
+    </div>
+    <div class="v-lenient">
+      <div>Lenient lens · independent grader</div>
+      <div class="big">{{LENIENT_PCT}}</div>
+      <div>{{LENIENT_POINTS}} · {{LENIENT_BAND}}</div>
+      <div class="compare">Strict professor scored this <b>{{STRICT_PCT}} ({{STRICT_BAND}})</b>. Toggle to switch.</div>
+    </div>
+  </div>
+
+  <!-- ONE CRITERION CARD (repeat per criterion) -->
+  <div class="crit">
+    <div class="crit-head"><span class="name">{{CRITERION_NAME}}</span><span class="max">max {{CRITERION_MAX}}</span></div>
+    <div class="v-strict">
+      <div class="scoreline"><span class="pts">{{C_STRICT_PTS}}</span> / {{CRITERION_MAX}}</div>
+      <div class="bar"><i style="width:{{C_STRICT_PCT}}%"></i></div>
+      <div class="just">{{C_STRICT_JUST}}</div>
+      <div class="el">
+        <div class="box earn"><h4>What earns marks</h4><ul><li>{{C_STRICT_EARN_1}}</li></ul></div>
+        <div class="box lose"><h4>What loses marks</h4><ul><li>{{C_STRICT_LOSE_1}}</li></ul><!-- or <p class="none">Nothing, full marks.</p> --></div>
+      </div>
+    </div>
+    <div class="v-lenient">
+      <div class="scoreline"><span class="pts">{{C_LENIENT_PTS}}</span> / {{CRITERION_MAX}}</div>
+      <div class="bar"><i style="width:{{C_LENIENT_PCT}}%"></i></div>
+      <div class="just">{{C_LENIENT_JUST}}</div>
+      <div class="el">
+        <div class="box earn"><h4>What earns marks</h4><ul><li>{{C_LENIENT_EARN_1}}</li></ul></div>
+        <div class="box lose"><h4>What loses marks</h4><p class="none">Nothing, full marks.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERDICT (one per lens) -->
+  <div class="v-strict"><div class="verdict"><h3>{{STRICT_PCT}} · {{STRICT_BAND}}</h3><p>{{STRICT_VERDICT}}</p><em>Prof. {{PROFESSOR_NAME}}, holding the line.</em></div></div>
+  <div class="v-lenient"><div class="verdict"><h3>{{LENIENT_PCT}} · {{LENIENT_BAND}}</h3><p>{{LENIENT_VERDICT}}</p><em>Prof. {{PROFESSOR_NAME}}, giving credit where due.</em></div></div>
+
+  <!-- IMPROVEMENTS -->
+  <h2>How to close the gap</h2>
+  <ul><li>{{IMPROVEMENT_1}}</li><li>{{IMPROVEMENT_2}}</li><li>{{IMPROVEMENT_3}}</li></ul>
+
+  <footer>
+    <p>Graded by two independent agents (strict + lenient), blind to each other. {{METHODOLOGY_NOTE}}
+       Graded against {{RUBRIC_SOURCE}}. Skipped / normalised: {{SKIPPED_NOTE}}.</p>
+  </footer>
+
+</div>
+<script>
+  function setLens(l){
+    document.body.classList.remove('lens-strict','lens-lenient');
+    document.body.classList.add('lens-'+l);
+    document.querySelectorAll('.seg button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.l===l ? 'true':'false');
+    });
+  }
+</script>
+</body>
+</html>

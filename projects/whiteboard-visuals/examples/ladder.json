@@ -1,0 +1,14 @@
+{
+  "type": "ladder",
+  "title": "how a team learns to love code review",
+  "subtitle": "four rungs, climbed one sprint at a time",
+  "steps": [
+    {"label": "review when asked", "line": "optional, mostly a formality"},
+    {"label": "every change reviewed", "line": "one approval before merge"},
+    {"label": "small changes only", "line": "under 300 lines, read in one sitting", "matters": true},
+    {"label": "review as teaching", "line": "juniors review seniors too"}
+  ],
+  "person": {"pose": "up", "label": "the new hire", "aside": "learns faster"},
+  "takeaway": "small reviews get read. big ones get approved",
+  "signature": "Alex Morgan"
+}

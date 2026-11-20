@@ -1,0 +1,21 @@
+{
+  "type": "boxes",
+  "title": "three steps to a deploy nobody fears",
+  "subtitle": "how the Northwind Retail web team ships on a Friday",
+  "layout": "stack",
+  "boxes": [
+    {"id": "merge", "label": "merge to main", "line": "tests and review already passed"},
+    {"id": "stage", "label": "staging", "line": "same build, real data shape"},
+    {"id": "canary", "label": "canary release", "line": "five per cent of traffic first", "matters": true},
+    {"id": "all", "label": "everyone", "line": "only after the numbers hold"}
+  ],
+  "arrows": [
+    {"from": "merge", "to": "stage"},
+    {"from": "stage", "to": "canary", "label": "one button, logged"},
+    {"from": "canary", "to": "all"}
+  ],
+  "person": {"pose": "think", "label": "the on-call dev", "aside": "watching one dashboard"},
+  "risk": {"from": "stage", "head": "skip the canary:", "body": "every user finds it.", "aside": "the outage we design against"},
+  "takeaway": "small first, then everyone. the canary is the cheapest safety net",
+  "signature": "Alex Morgan"
+}

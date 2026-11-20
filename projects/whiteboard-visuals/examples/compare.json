@@ -1,0 +1,10 @@
+{
+  "type": "compare",
+  "title": "manual testing vs automated tests",
+  "subtitle": "what a release at Contoso Outdoor used to cost",
+  "left": {"title": "by hand", "items": ["two days per release", "depends on who is free", "steps drift over time", "found late, fixed late"]},
+  "right": {"title": "automated", "items": ["eight minutes per change", "runs on every commit", "same steps every time", "found early, fixed early"], "matters": true},
+  "person": {"pose": "up", "label": "the test lead", "aside": "now writes the tests"},
+  "takeaway": "people find the new bugs. machines stop the old ones coming back",
+  "signature": "Alex Morgan"
+}

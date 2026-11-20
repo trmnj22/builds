@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.zip
+.env
+
+# build outputs next to the sources (the curated samples live in docs/)
+examples/*.html
+examples/*.pdf
+examples/*.docx
+examples/*.png

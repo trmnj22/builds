@@ -1,0 +1,39 @@
+{
+  "assignment": "Business case essay: Northwind loyalty app",
+  "professor": "Jordan Lee (fictional)",
+  "scale": "0 to 100 points",
+  "date": "2026-11-20",
+  "files": ["sample-essay.md", "sample-rubric.md"],
+  "bands": [[85, "High Distinction"], [75, "Distinction"], [65, "Credit"], [50, "Pass"], [0, "Fail"]],
+  "criteria": [
+    {"id": "C1", "name": "Argument", "max": 30},
+    {"id": "C2", "name": "Evidence", "max": 25},
+    {"id": "C3", "name": "Structure and clarity", "max": 25},
+    {"id": "C4", "name": "Recommendation", "max": 20}
+  ],
+  "strict": {
+    "scores": {
+      "C1": {"score": 21, "earns": ["Position stated in the first paragraph", "Counter-argument about older shoppers is answered"], "loses": ["Only one counter-argument considered", "Cost of the move is never weighed against the benefit"], "justification": "A clear position, but it is defended against the easiest objection only."},
+      "C2": {"score": 14, "earns": ["Survey figure of 62% monthly app use is cited"], "loses": ["Falling card scans are asserted with no numbers", "Competitor claim has no source", "Data benefit is described, not shown"], "justification": "One real figure carries the whole case and the rest is assertion."},
+      "C3": {"score": 20, "earns": ["One idea per paragraph", "Plain, readable language"], "loses": ["No headings to separate argument from recommendation"], "justification": "Easy to follow, though short enough that structure is never really tested."},
+      "C4": {"score": 11, "earns": ["Pilot size and a go or no-go threshold are given"], "loses": ["No cost estimate", "Risks are not listed", "Timeline stops after the pilot"], "justification": "Specific about the pilot but silent on cost and risk, which the rubric asks for."}
+    },
+    "verdict": "A tidy essay with a sensible idea, but it leans on a single statistic and skips the cost question entirely. The rubric asks for a costed recommendation with risks and this one has neither."
+  },
+  "lenient": {
+    "scores": {
+      "C1": {"score": 25, "earns": ["Position stated early and held throughout", "Anticipates the older-shopper objection and offers a fallback"], "loses": ["Cost trade-off could be named"], "justification": "A confident, consistent argument that takes the main objection seriously."},
+      "C2": {"score": 18, "earns": ["Uses the company's own survey data", "Links the data point to the argument"], "loses": ["Card scan decline needs a figure", "Competitor example needs a source"], "justification": "Good instinct to use first-party data, with a few claims left unsupported."},
+      "C3": {"score": 23, "earns": ["Clean one-idea paragraphs", "Plain language throughout"], "loses": ["Headings would help a skim reader"], "justification": "Clear and well ordered for its length."},
+      "C4": {"score": 15, "earns": ["Concrete pilot of five stores", "Measurable 30% success threshold"], "loses": ["Add a rough cost and the main risks"], "justification": "A practical, testable next step that only lacks cost and risk."}
+    },
+    "verdict": "A practical case with a testable pilot and a fair answer to the obvious objection. Add a cost line and two or three risks and this moves up a band."
+  },
+  "improvements": [
+    {"text": "Put a number on the card scan decline and source the competitor example.", "targets": "C2"},
+    {"text": "Add a rough cost for the app programme and weigh it against the expected benefit.", "targets": "C1, C4"},
+    {"text": "List the top three risks of the move with one mitigation each.", "targets": "C4"},
+    {"text": "Extend the timeline past the pilot to a full rollout date.", "targets": "C4"}
+  ],
+  "methodology": "Illustrative output. The scores show the JSON shape the two professor agents return and were written by hand for this demo from a fictional essay and rubric."
+}

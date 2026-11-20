@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": "the queue at the coffee cart",
+  "subtitle": "one morning rush at a fictional cafe, timed",
+  "value": "90",
+  "unit": "seconds saved per customer",
+  "how": "the second barista takes orders down the line, so the machine never waits for a decision.",
+  "person": {"pose": "walk", "label": "the second barista", "aside": "notepad, not a till"},
+  "asides": ["same staff, same machine"],
+  "takeaway": "the bottleneck was the order, not the espresso",
+  "signature": "Alex Morgan"
+}

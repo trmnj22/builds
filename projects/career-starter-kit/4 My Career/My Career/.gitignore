@@ -1,0 +1,68 @@
+# Keeps your own files and the notes built from them out of any git repo you make from this folder.
+# Only the starter files (skills, templates, guides and the About notes) are meant to be shared.
+# Index.md, Preferences.md, Voice.md, Ideas.md, Topic radar.md, Topic backlog.md, Already said.md,
+# Seen.md and Leads.md ship blank but fill up with your details,
+# so they are ignored too. A public copy of the starter adds the blank versions with git add -f.
+
+# Your files
+Inbox/*
+!Inbox/About inbox.md
+
+# Notes the build writes about you
+# Anchored with a leading slash so Templates/Profile.md, Templates/Index.md and Templates/Build log.md still ship.
+/Profile.md
+/Build log.md
+/Index.md
+/Old builds/
+Sources/*
+!Sources/About sources.md
+Roles/*
+!Roles/About roles.md
+Employers/*
+!Employers/About employers.md
+Achievements/*
+!Achievements/About achievements.md
+Skills/*
+!Skills/About skills.md
+Stories/*
+!Stories/About stories.md
+Themes/*
+!Themes/About themes.md
+Education/*
+!Education/About education.md
+Certifications/*
+!Certifications/About certifications.md
+Recommendations/*
+!Recommendations/About recommendations.md
+Gaps/*
+!Gaps/About gaps.md
+
+# CVs, board memos and LinkedIn posts made for you
+Targets/*
+!Targets/About targets.md
+LinkedIn/Drafts/*
+!LinkedIn/Drafts/About*.md
+LinkedIn/Posted/*
+!LinkedIn/Posted/About*.md
+LinkedIn/Voice.md
+LinkedIn/Ideas.md
+LinkedIn/Topic radar.md
+LinkedIn/Topic backlog.md
+LinkedIn/Already said.md
+LinkedIn/run-linkedin-scan.cmd
+LinkedIn/scan-log.txt
+
+# Job Scout results and your preferences
+Job Scout/Shortlists/*
+!Job Scout/Shortlists/About shortlists.md
+Job Scout/Preferences.md
+Job Scout/Seen.md
+Job Scout/Leads.md
+Job Scout/run-scout.cmd
+scout-log.txt
+
+# Local settings and computer junk
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+desktop.ini
